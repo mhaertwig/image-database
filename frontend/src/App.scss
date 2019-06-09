@@ -1,0 +1,31 @@
+html, body, #root{
+  height: 100%;
+
+  #root {
+    overflow-y: auto;
+  }
+}
+
+.App {
+  background: #f9f9f9;
+  min-height: 100%;
+  color: #3c3c3c;
+
+  a {
+    &:visited {
+      color: #3c3c3c;
+    }
+
+    &.active {
+      font-weight: bold;
+
+      svg {
+        stroke-width: 2;
+      }
+    }
+
+    &:hover {
+      color: #113194;
+    }
+  }
+}

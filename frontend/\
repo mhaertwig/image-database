@@ -1,0 +1,151 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FaImage, FaCheck } from 'react-icons/fa';
+import ReactTags from 'react-tag-autocomplete';
+import ImagePage from './ImagePage';
+import { addImage, fetchTags } from '../model/actions';
+import './Upload.scss';
+
+const propTypes = {
+  tagSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchAddImage: PropTypes.func.isRequired,
+  dispatchFetchTags: PropTypes.func.isRequired,
+};
+
+class Upload extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imageTitle: '',
+      imageDescription: '',
+      imageUrl: null,
+      imageFile: null,
+      tags: [],
+    };
+
+    this.fileReader = new FileReader();
+    this.fileReader.addEventListener('load', () => {
+      this.setState({
+        imageUrl: this.fileReader.result,
+      });
+    });
+  }
+
+  onDrop(e) {
+    e.preventDefault();
+    if (e.dataTransfer.items) {
+      for (let i = 0; i < e.dataTransfer.items.length; i += 1) {
+        if (e.dataTransfer.items[i].kind === 'file') {
+          const imageFile = e.dataTransfer.items[i].getAsFile();
+          this.fileReader.readAsDataURL(imageFile);
+          this.setState({ imageFile });
+        }
+      }
+    }
+  }
+
+  uploadImage() {
+    const { dispatchAddImage } = this.props;
+    const { tags, imageTitle, imageDescription, imageFile } = this.state;
+
+    dispatchAddImage({
+      tags,
+      caption: imageTitle,
+      description: imageDescription,
+      src: imageFile,
+    });
+  }
+
+  render() {
+    const { imageUrl, imageTitle, imageDescription, tags } = this.state;
+    const { tagSuggestions, dispatchFetchTags } = this.props;
+    let img = <FaImage className="icon" />;
+
+    if (imageUrl) {
+      img = <img className="image" src={imageUrl} alt="Preview" />;
+    }
+
+    const title = (
+      <input
+        className="input-field image-title"
+        placeholder="Enter title"
+        value={imageTitle}
+        onChange={e => this.setState({ imageTitle: e.target.value })}
+      />
+    );
+
+    const description = (
+      <textarea
+        className="input-field image-description"
+        placeholder="Add description"
+        value={imageDescription}
+        onChange={e => this.setState({ imageDescription: e.target.value })}
+      />
+    );
+
+    const sidebar = (
+      <div className="input-sidebar">
+        <div className="tags">
+          <ReactTags
+            allowNew
+            tags={tags}
+            suggestions={tagSuggestions}
+            handleAddition={tag => this.setState({ tags: [...tags, tag] })}
+            handleInputChange={input => dispatchFetchTags(input)}
+            handleDelete={i => {
+              const newTags = [...tags];
+              newTags.splice(i, 1);
+              this.setState({ tags: newTags });
+            }}
+          />
+        </div>
+
+        <button
+          className="submit-button"
+          type="submit"
+          onClick={() => this.uploadImage()}
+        >
+          <FaCheck />
+          &nbsp;Upload image
+        </button>
+      </div>
+    );
+
+    const image = (
+      <div
+        className="image-upload"
+        onDragOver={e => e.preventDefault()}
+        onDrop={e => this.onDrop(e)}
+      >
+        {img}
+      </div>
+    );
+
+    return (
+      <ImagePage
+        title={title}
+        image={image}
+        description={description}
+        sidebar={sidebar}
+      />
+    );
+  }
+}
+
+Upload.propTypes = propTypes;
+
+const mapStateToProps = state => ({
+  tagSuggestions: state.tagSuggestions,
+});
+
+const mapDispatchToProps = {
+  dispatchAddImage: addImage,
+  dispatchFetchTags: fetchTags,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Upload);

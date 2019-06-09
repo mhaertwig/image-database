@@ -1,0 +1,4 @@
+development.ini
+production.ini
+frontend/node_modules
+__pycache__
