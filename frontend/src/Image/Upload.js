@@ -25,6 +25,7 @@ class Upload extends Component {
       tags: [],
     };
 
+    this.fileInput = null;
     this.fileReader = new FileReader();
     this.fileReader.addEventListener('load', () => {
       this.setState({
@@ -41,11 +42,15 @@ class Upload extends Component {
       for (let i = 0; i < e.dataTransfer.items.length; i += 1) {
         if (formats.includes(e.dataTransfer.items[i].type)) {
           const imageFile = e.dataTransfer.items[i].getAsFile();
-          this.fileReader.readAsDataURL(imageFile);
-          this.setState({ imageFile });
+          this.loadImage(imageFile);
         }
       }
     }
+  }
+
+  loadImage(imageFile) {
+    this.fileReader.readAsDataURL(imageFile);
+    this.setState({ imageFile });
   }
 
   submitData() {
@@ -117,13 +122,32 @@ class Upload extends Component {
     );
 
     const image = (
-      <div
-        className="image-upload"
-        onDragOver={e => e.preventDefault()}
-        onDrop={e => this.onDrop(e)}
-      >
-        {img}
-      </div>
+      <>
+        <input
+          type="file"
+          onChange={e => {
+            if (e.target.files.length) {
+              this.loadImage(e.target.files[0]);
+            }
+          }}
+          ref={ref => {
+            this.fileInput = ref;
+          }}
+          style={{ display: 'none' }}
+        />
+
+        <div
+          className="image-upload"
+          onDragOver={e => e.preventDefault()}
+          onDrop={e => this.onDrop(e)}
+          onClick={() => this.fileInput.click()}
+          onKeyPress={e => e.which === 13 && this.fileInput.click()}
+          role="button"
+          tabIndex="0"
+        >
+          {img}
+        </div>
+      </>
     );
 
     return (
