@@ -1,0 +1,12 @@
+Django==2.1
+django-ckeditor==5.7.1
+django-cors-headers==3.0.1
+django-extra-fields==1.2.1
+django-js-asset==1.2.2
+django-sortedm2m==1.5.0
+djangorestframework==3.9.4
+ExifRead==2.1.2
+Pillow==6.0.0
+psycopg2==2.8.2
+pytz==2019.1
+sqlparse==0.3.0
