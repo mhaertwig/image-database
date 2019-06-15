@@ -16,7 +16,7 @@ import configparser
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-config_file = os.getenv('APP_CONFIG', os.path.join(BASE_DIR, 'development.ini'))
+config_file = os.getenv('APP_CONFIG', os.path.join(BASE_DIR, 'production.ini'))
 
 config = configparser.ConfigParser()
 with open(config_file) as f:
