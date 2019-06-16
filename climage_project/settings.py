@@ -82,7 +82,6 @@ TEMPLATES = [
 ]
 
 SITE_ID = 1
-FORCE_SCRIPT_NAME = '/climage'
 
 WSGI_APPLICATION = 'climage_project.wsgi.application'
 
