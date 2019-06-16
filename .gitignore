@@ -1,4 +1,5 @@
 development.ini
 production.ini
 frontend/node_modules
+ansible/env_vars/passwords.yml
 __pycache__

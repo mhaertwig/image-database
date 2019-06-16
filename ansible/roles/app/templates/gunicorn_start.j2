@@ -1,0 +1,9 @@
+[Unit]
+Description=gunicorn daemon for {{application_name }} app
+After=network.target
+
+[Service]
+User={{ application_name }}
+Group=www-data
+WorkingDirectory={{ application_dir }}
+ExecStart={{virtualenv_path}}/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 climage_project.wsgi

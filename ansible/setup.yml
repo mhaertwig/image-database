@@ -1,0 +1,14 @@
+---
+- hosts: all
+  vars_files:
+  - env_vars/base.yml
+  - env_vars/passwords.yml
+  roles:
+  - nginx
+  - postgresql
+  - supervisor
+  - app
+
+  handlers:
+  - name: restart nginx
+    service: name=nginx  state=restarted

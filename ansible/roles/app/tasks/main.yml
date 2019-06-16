@@ -1,0 +1,48 @@
+---
+- name: Create app user
+  user:
+    name: "{{ application_name }}"
+    shell: /bin/bash
+    state: present
+    home: "/home/{{ application_name }}"
+
+- name: Create app folder
+  file:
+    state: directory
+    path: "{{ application_dir }}" 
+    owner: "{{ application_name }}"
+    group: "{{ application_name }}"
+    mode: 0755
+
+- name: Ensure gunicorn is installed
+  pip: virtualenv={{ virtualenv_path }} name=gunicorn
+  tags: gunicorn
+
+- name: Create the Gunicorn script file
+  template: src=gunicorn_start.j2
+            dest=/etc/systemd/system/gunicorn-{{ application_name }}.service
+
+- name: Clone repository
+  git:
+    repo: "{{ git_repo }}" 
+    version: master
+    dest: "{{ application_dir }}"
+    accept_hostkey: yes
+    key_file: /home/{{ application_name }}/.ssh/id_rsa
+  become: yes
+  become_user: "{{ application_name }}"
+
+- name: Install requirements 
+  pip: virtualenv={{ virtualenv_path }} version=3.6 requirements={{ application_dir }}/requirements.txt
+  notify:
+  - restart nginx
+
+- name: Django collectstatic
+  django_manage: command=collectstatic app_path={{ application_dir }} virtualenv={{ virtualenv_path }}
+  notify:
+  - restart nginx
+
+- name: Django migrate
+  django_manage: command=migrate app_path={{ application_dir }} virtualenv={{ virtualenv_path }}
+  notify:
+  - restart nginx

@@ -1,0 +1,33 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - postgresql
+    - postgresql-contrib
+    - python3-psycopg2
+
+- name: Create database
+  become: true
+  become_user: postgres
+  postgresql_db: name={{ db_name }}
+
+- name: Create database user
+  become: true
+  become_user: postgres
+  postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL
+
+- name: Add postgis 
+  become: true
+  become_user: postgres
+  postgresql_ext:
+    name: postgis
+    db: "{{ application_name}}"
+
+- name: Add tg_trgm 
+  become: true
+  become_user: postgres
+  postgresql_ext:
+    name: pg_trgm
+    db: "{{ application_name}}"

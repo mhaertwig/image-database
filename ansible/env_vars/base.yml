@@ -1,0 +1,10 @@
+application_name: climage
+git_repo: git@github.com:mhaertwig/climage.git 
+
+root_dir: "/srv/www/{{ application_name }}"
+application_dir: "{{ root_dir }}/app"
+virtualenv_path: /srv/www/climage/venv
+application_log_file: /srv/www/climage/logs
+
+db_name: climage 
+db_user: climage
