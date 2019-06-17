@@ -32,7 +32,7 @@ SECRET_KEY = config['main']['secret_key']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config.getboolean('main', 'debug')
 
-ALLOWED_HOSTS = ['46.4.121.53']
+ALLOWED_HOSTS = ['46.4.121.53', 'backend.climage.mariohaertwig.de']
 
 
 # Application definition

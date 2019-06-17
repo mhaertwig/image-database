@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name 46.4.121.53 
+  server_name backend.climage.mariohaertwig.de
   charset utf-8;
 
 
@@ -17,12 +17,8 @@ server {
     root {{ root_dir }};
   }
 
-  location /climage {
-    rewrite /climage(.*) $1;
-
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  location / {
     proxy_set_header Host $http_host;
-    proxy_redirect off;
     proxy_pass http://localhost:8000;
   }
 }
