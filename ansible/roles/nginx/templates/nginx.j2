@@ -3,14 +3,8 @@ server {
   server_name backend.climage.mariohaertwig.de
   charset utf-8;
 
-
   location /media {
     root {{ root_dir }};
-  }
-
-  location /frontend {
-    alias {{ application_dir }}/frontend/build;
-    try_files $uri /index.html;
   }
 
   location /static {
