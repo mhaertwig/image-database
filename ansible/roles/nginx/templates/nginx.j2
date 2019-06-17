@@ -22,3 +22,16 @@ server {
     proxy_pass http://localhost:8000;
   }
 }
+
+
+server {
+  listen 80;
+  server_name climage.mariohaertwig.de;
+  root {{ application_dir }}/frontend/build;
+  index index.html;
+  charset utf-8;
+
+  location / {
+    try_files $uri /index.html =404;
+  }
+}

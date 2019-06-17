@@ -1,12 +1,12 @@
-let baseUrl = 'http://localhost:8000';
+let backendUrl = 'http://localhost:8000';
 
 switch (process.env.REACT_APP_ENV) {
   case 'local': {
-    baseUrl = 'http://localhost:8000';
+    backendUrl = 'http://localhost:8000';
     break;
   }
   case 'prod': {
-    baseUrl = '//tiles.trafimage.ch';
+    backendUrl = '//backend.climage.mariohaertwig.de';
     break;
   }
   case 'stag': {
@@ -19,5 +19,5 @@ switch (process.env.REACT_APP_ENV) {
 }
 
 export default {
-  baseUrl,
+  backendUrl,
 };
