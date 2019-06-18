@@ -34,6 +34,9 @@ DEBUG = config.getboolean('main', 'debug')
 
 ALLOWED_HOSTS = ['46.4.121.53', 'backend.climage.mariohaertwig.de']
 
+if DEBUG:
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
+
 
 # Application definition
 

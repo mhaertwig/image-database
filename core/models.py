@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 from PIL import Image as PILImage
 from io import BytesIO
 from django.core.files.base import ContentFile
+from django.utils.safestring import mark_safe
 from ckeditor.fields import RichTextField
 
 
@@ -75,6 +76,13 @@ class Image(models.Model):
 
     def __str__(self):
         return self.title
+
+    def image_tag(self):
+        return mark_safe(
+            '<img src="%s" width="170" />' % self.thumbnail.url)
+
+    image_tag.short_description = 'Image'
+    image_tag.allow_tags = True
 
 
 class Page(models.Model):
