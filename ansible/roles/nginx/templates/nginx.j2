@@ -1,5 +1,18 @@
 server {
   listen 80;
+  server_mariohaertwig.de;
+  root {{ application_dir }}/frontend/build;
+  index index.html;
+  charset utf-8;
+
+  location / {
+    default_type text/plain;
+    return 418 "418 I'm a teapot\n";
+  }
+}
+
+server {
+  listen 80;
   server_name backend.climage.mariohaertwig.de
   client_max_body_size20M;
   charset utf-8;
