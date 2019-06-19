@@ -6,6 +6,10 @@
   border-bottom: 1px solid #e4e4e4;
   z-index: 1;
 
+  a {
+    text-decoration: none;
+  }
+
   .inner {
     padding: 10px;
     display: flex;
@@ -23,5 +27,42 @@
       display: flex;
       justify-content: flex-end;
     }
+
+		.header-title a {
+      display: flex;
+      align-items: center;
+
+      .icon-spin {
+        margin-left: 10px;
+        color: red;
+      }
+    }
   }
+
+  .icon-spin {
+		-webkit-animation: icon-spin 2s infinite linear;
+		animation: icon-spin 2s infinite linear;
+	}
+
+	@-webkit-keyframes icon-spin {
+		0% {
+			-webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(359deg);
+      transform: rotate(359deg);
+		}
+	}
+
+	@keyframes icon-spin {
+		0% {
+			-webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+		}
+		100% {
+			-webkit-transform: rotate(359deg);
+      transform: rotate(359deg);
+		}
+	}
 }

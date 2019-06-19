@@ -1,7 +1,9 @@
 server {
   listen 80;
   server_name backend.climage.mariohaertwig.de
+  client_max_body_size20M;
   charset utf-8;
+  add_header 'Access-Control-Allow-Origin' '*';
 
   location /media {
     root {{ root_dir }};
@@ -14,6 +16,8 @@ server {
   location / {
     proxy_set_header Host $http_host;
     proxy_pass http://localhost:8000;
+    add_header 'Access-Control-Allow-Origin' '*';
+    client_max_body_size 20M;
   }
 }
 

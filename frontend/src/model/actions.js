@@ -5,6 +5,7 @@ export const SET_IMAGES = 'SET_IMAGES';
 export const SET_PAGES = 'SET_PAGES';
 export const SET_TAG_SUGGESTIONS = 'SET_TAG_SUGGESTIONS';
 export const ADD_IMAGE = 'ADD_IMAGE';
+export const IMAGE_UPLOADING = 'IMAGE_UPLOADING';
 
 export const fetchImages = search => dispatch => {
   let url = `${CONF.backendUrl}/core/image/`;
@@ -38,7 +39,7 @@ export const fetchTags = search => dispatch => {
 
 export const addImage = body => dispatch => {
   const formData = objectToFormData(body);
-
+  dispatch({ type: IMAGE_UPLOADING, data: true });
   fetch(`${CONF.backendUrl}/core/image/`, {
     method: 'POST',
     body: formData,
@@ -46,5 +47,6 @@ export const addImage = body => dispatch => {
     .then(data => data.json())
     .then(data => {
       dispatch({ type: ADD_IMAGE, data });
+      dispatch({ type: IMAGE_UPLOADING, data: false });
     });
 };

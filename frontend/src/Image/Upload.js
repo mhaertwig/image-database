@@ -9,6 +9,8 @@ import './Upload.scss';
 
 const propTypes = {
   tagSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isImageUploading: PropTypes.bool.isRequired,
+  history: PropTypes.shape().isRequired,
   dispatchAddImage: PropTypes.func.isRequired,
   dispatchFetchTags: PropTypes.func.isRequired,
 };
@@ -32,6 +34,13 @@ class Upload extends Component {
         imageUrl: this.fileReader.result,
       });
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { isImageUploading, history } = this.props;
+    if (!isImageUploading && prevProps.isImageUploading) {
+      history.push('/');
+    }
   }
 
   onDrop(e) {
@@ -164,6 +173,7 @@ class Upload extends Component {
 Upload.propTypes = propTypes;
 
 const mapStateToProps = state => ({
+  isImageUploading: state.isImageUploading,
   tagSuggestions: state.tagSuggestions,
 });
 

@@ -3,16 +3,23 @@ import {
   SET_IMAGES,
   SET_PAGES,
   SET_TAG_SUGGESTIONS,
+  IMAGE_UPLOADING,
 } from './actions';
 
 const initialState = {
   images: [],
   pages: [],
   tagSuggestions: [],
+  isImageUploading: false,
 };
 
 export default function climageApp(state = initialState, action) {
   switch (action.type) {
+    case IMAGE_UPLOADING:
+      return {
+        ...state,
+        isImageUploading: action.data,
+      };
     case SET_IMAGES:
       return {
         ...state,
