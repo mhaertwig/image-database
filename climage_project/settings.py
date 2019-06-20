@@ -142,3 +142,4 @@ MEDIA_URL = '/media/'
 
 # Image Upload configuration
 CLIMAGE_THUMB_WIDTH = 300
+FILE_UPLOAD_PERMISSIONS = 0o644

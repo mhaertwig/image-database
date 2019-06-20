@@ -1,22 +1,19 @@
 server {
   listen 80;
-  server_mariohaertwig.de;
-  root {{ application_dir }}/frontend/build;
-  index index.html;
+  server_name mariohaertwig.de;
   charset utf-8;
 
   location / {
     default_type text/plain;
-    return 418 "418 I'm a teapot\n";
+    return 418 "418 I'm a teapot";
   }
 }
 
 server {
   listen 80;
   server_name backend.climage.mariohaertwig.de
-  client_max_body_size20M;
+  client_max_body_size 20M;
   charset utf-8;
-  add_header 'Access-Control-Allow-Origin' '*';
 
   location /media {
     root {{ root_dir }};
@@ -29,7 +26,6 @@ server {
   location / {
     proxy_set_header Host $http_host;
     proxy_pass http://localhost:8000;
-    add_header 'Access-Control-Allow-Origin' '*';
     client_max_body_size 20M;
   }
 }
