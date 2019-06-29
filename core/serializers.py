@@ -19,7 +19,6 @@ class ImageDetailSerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(read_only=True, many=True)
     caption = serializers.CharField(source='title')
     thumbnailWidth = serializers.IntegerField(source='thumbnail_width', required=False)
     thumbnailHeight = serializers.IntegerField(source='thumbnail_height', required=False)
@@ -28,7 +27,7 @@ class ImageSerializer(serializers.ModelSerializer):
         model = models.Image
         lookup_field = 'slug'
         fields = ('caption', 'thumbnail', 'src', 'slug', 'thumbnailWidth', 'thumbnailHeight',
-                  'tags', 'description',)
+                  'description',)
 
     def create(self, validated_data):
         tags_data = json.loads(self.context['request'].POST.get('tags'))
