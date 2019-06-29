@@ -23,6 +23,7 @@ class Image(models.Model):
     slug = models.SlugField(unique=True, max_length=255, blank=True)
     src = models.ImageField()
     thumbnail = models.ImageField(upload_to='thumbs', editable=False, null=True)
+    thumbnail_medium = models.ImageField(upload_to='thumbs', editable=False, null=True)
     thumbnail_width = models.IntegerField(default=0, blank=True)
     thumbnail_height = models.IntegerField(default=0, blank=True)
     description = models.TextField(blank=True)
@@ -35,22 +36,22 @@ class Image(models.Model):
         get_latest_by = 'date_added'
 
     def save(self, *args, **kwargs):
-        self.make_thumbnail()
+        size = self.make_thumbnail(self.thumbnail, settings.CLIMAGE_THUMB_WIDTH)
+        self.thumbnail_width, self.thumbnail_height = size
+
+        size = self.make_thumbnail(self.thumbnail_medium, 800)
+
         self.slug = slugify('%s-%s' % (self.title, self.date_added,))
         super(Image, self).save(*args, **kwargs)
 
-    def make_thumbnail(self):
-        if not settings.CLIMAGE_THUMB_WIDTH:
-            return False
-
+    def make_thumbnail(self, field, thumb_width):
         image = PILImage.open(self.src)
         width, height = image.size
         thumbnail_size = (
-            settings.CLIMAGE_THUMB_WIDTH,
-            height * settings.CLIMAGE_THUMB_WIDTH / width,
+            thumb_width,
+            height * thumb_width / width,
         )
 
-        self.thumbnail_width, self.thumbnail_height = thumbnail_size
         image.thumbnail(thumbnail_size, PILImage.ANTIALIAS)
         thumb_name, thumb_extension = os.path.splitext(self.src.name)
         thumb_extension = thumb_extension.lower()
@@ -71,8 +72,9 @@ class Image(models.Model):
         temp_thumb.seek(0)
 
         # set save=False, otherwise it will run in an infinite loop
-        self.thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
+        field.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
         temp_thumb.close()
+        return thumbnail_size
 
     def __str__(self):
         return self.title

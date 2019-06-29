@@ -15,7 +15,7 @@ class ImageDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ('caption', 'slug', 'src', 'description', 'tags', )
+        fields = ('caption', 'slug', 'src', 'description', 'tags', 'thumbnail_medium', )
 
 
 class ImageSerializer(serializers.ModelSerializer):

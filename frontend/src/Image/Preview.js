@@ -102,7 +102,7 @@ class Preview extends Component {
         >
           <FaAngleLeft />
         </button>
-        <img alt={image.caption} src={image.src} />
+        <img alt={image.caption} src={image.thumbnail_medium} />
         <button
           style={{ display: `${next ? 'block' : 'none'}` }}
           type="button"
