@@ -57,7 +57,7 @@ class Preview extends Component {
     document.removeEventListener('keydown', this.onDocumentKeyDown);
   }
 
-  onDocumentKeyDown(e) { 
+  onDocumentKeyDown(e) {
     const { prev, next } = this.state;
     if (e.which === 37 && prev) {
       this.loadImage(prev.slug);
@@ -114,13 +114,21 @@ class Preview extends Component {
       </>
     );
 
+    const tags = (
+      <ul className="tags">
+        {(image.tags || []).map(t => (
+          <li>{t.name}</li>
+        ))}
+      </ul>
+    );
+
     return (
       <div className="Preview">
         <ImagePage
           title={image.caption}
           image={imageElement}
           description={image.description}
-          sidebar={<div>foo</div>}
+          sidebar={tags}
         />
       </div>
     );

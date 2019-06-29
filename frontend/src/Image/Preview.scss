@@ -5,6 +5,25 @@
     width: calc(100% - 40px);
   }
 
+  .sidebar {
+
+    ul.tags {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+
+      li {
+        display: block;
+        border: 1px solid #c3c3c3;
+        background: white;
+        font-size: 13px;
+        padding: 5px 10px;
+        margin: 0 10px 10px 0;
+      }
+    }
+  }
+
   .image {
     position: relative;
 

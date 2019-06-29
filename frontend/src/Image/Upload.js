@@ -67,7 +67,7 @@ class Upload extends Component {
     const { tags, imageTitle, imageDescription, imageFile } = this.state;
 
     dispatchAddImage({
-      tags,
+      tags: JSON.stringify(tags),
       caption: imageTitle,
       description: imageDescription,
       src: imageFile,
