@@ -1,0 +1,46 @@
+.Preview .ImagePage {
+  .title,
+  .description {
+    padding: 6px 20px;
+    width: calc(100% - 40px);
+  }
+
+  .image {
+    position: relative;
+
+    .next-image-button,
+    .prev-image-button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background: transparent;
+      color: transparent;
+      width: 70px;
+      cursor: pointer;
+      border: 0;
+      font-size: 40px;
+      text-align: center;
+      padding: 0;
+      transition: all .2s ease;
+      outline: 0;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.4);  
+        color: white;
+      }
+    }
+
+    .prev-image-button {
+      left: 0;
+    }
+
+    .next-image-button {
+      right: 0;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+    min-height: 18px;
+  }
+}

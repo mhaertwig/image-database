@@ -7,6 +7,7 @@ import { fetchImages } from '../model/actions';
 import './Gallery.scss';
 
 const propTypes = {
+  history: PropTypes.shape().isRequired,
   images: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   dispatchFetchImages: PropTypes.func.isRequired,
 };
@@ -19,7 +20,7 @@ class Gallery extends Component {
   }
 
   render() {
-    const { images, dispatchFetchImages } = this.props;
+    const { images, dispatchFetchImages, history } = this.props;
     return (
       <div className="Gallery">
         <input
@@ -37,6 +38,7 @@ class Gallery extends Component {
           images={images}
           enableImageSelection={false}
           showImageCount={false}
+          onClickThumbnail={ix => history.push(`/image/${images[ix].slug}`)}
         />
       </div>
     );

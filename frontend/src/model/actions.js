@@ -2,6 +2,7 @@ import objectToFormData from 'object-to-formdata';
 import CONF from '../config';
 
 export const SET_IMAGES = 'SET_IMAGES';
+export const SET_IMAGE = 'SET_IMAGE';
 export const SET_PAGES = 'SET_PAGES';
 export const SET_TAG_SUGGESTIONS = 'SET_TAG_SUGGESTIONS';
 export const ADD_IMAGE = 'ADD_IMAGE';
@@ -16,6 +17,20 @@ export const fetchImages = search => dispatch => {
     .then(data => {
       dispatch({ type: SET_IMAGES, data });
     });
+};
+
+export const fetchImage = slug => dispatch => {
+  const url = `${CONF.backendUrl}/core/image/${slug}`;
+
+  fetch(url)
+    .then(data => data.json())
+    .then(data => {
+      dispatch({ type: SET_IMAGE, data });
+    });
+};
+
+export const setImage = data => dispatch => {
+  dispatch({ type: SET_IMAGE, data });
 };
 
 export const fetchPages = () => dispatch => {

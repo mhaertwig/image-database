@@ -8,15 +8,24 @@ class TagSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class ImageDetailSerializer(serializers.ModelSerializer):
     caption = serializers.CharField(source='title')
-    thumbnailWidth = serializers.IntegerField(source='thumbnail_width', required=False)
-    thumbnailHeight = serializers.IntegerField(source='thumbnail_height', required=False)
     tags = TagSerializer(many=True, required=False)
 
     class Meta:
         model = models.Image
-        exclude = ('thumbnail_width', 'thumbnail_height', 'title',)
+        fields = ('caption', 'slug', 'src', 'description', 'tags', )
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    caption = serializers.CharField(source='title')
+    thumbnailWidth = serializers.IntegerField(source='thumbnail_width', required=False)
+    thumbnailHeight = serializers.IntegerField(source='thumbnail_height', required=False)
+
+    class Meta:
+        model = models.Image
+        lookup_field = 'slug'
+        fields = ('caption', 'thumbnail', 'slug', 'thumbnailWidth', 'thumbnailHeight')
 
     def create(self, validated_data):
         tags_data = validated_data.pop('tags', [])

@@ -1,6 +1,7 @@
 import {
   ADD_IMAGE,
   SET_IMAGES,
+  SET_IMAGE,
   SET_PAGES,
   SET_TAG_SUGGESTIONS,
   IMAGE_UPLOADING,
@@ -24,6 +25,11 @@ export default function climageApp(state = initialState, action) {
       return {
         ...state,
         images: [...action.data],
+      };
+    case SET_IMAGE:
+      return {
+        ...state,
+        image: { ...action.data },
       };
     case SET_PAGES:
       return {

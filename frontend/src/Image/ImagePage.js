@@ -19,9 +19,9 @@ const defaultProps = {
 const ImagePage = ({ title, description, image, sidebar }) => (
   <div className="ImagePage">
     <div className="content">
-      <div className="field">{title}</div>
+      <div className="field title">{title}</div>
       <div className="image">{image}</div>
-      <div className="field">{description}</div>
+      <div className="field description">{description}</div>
     </div>
     <div className="sidebar">{sidebar}</div>
   </div>

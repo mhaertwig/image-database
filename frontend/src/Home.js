@@ -7,6 +7,7 @@ import Header from './Header/Header';
 import PageContent from './PageContent/PageContent';
 import Gallery from './Gallery/Gallery';
 import Upload from './Image/Upload';
+import Preview from './Image/Preview';
 import './Home.scss';
 
 const propTypes = {
@@ -40,7 +41,18 @@ class Home extends Component {
         <Router>
           <Header />
           <div className="body">
-            <Route exact path="/" component={Gallery} />
+            <Route
+              exact
+              path="/"
+              render={({ history }) => <Gallery history={history} />}
+            />
+            <Route
+              exact
+              path="/image/:slug"
+              render={({ history, match }) => (
+                <Preview slug={match.params.slug} history={history} />
+              )}
+            />
             <Route exact path="/upload/" component={Upload} />
             {pages.map(page => (
               <Route
