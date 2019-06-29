@@ -152,8 +152,8 @@ class Upload extends Component {
           &nbsp;Upload image
         </button>
         <div className="approve-note">
-          Note: The page admins have to approve the image
-          before it is visible in the gallery.
+          Note: The page admins have to approve the image before it is visible
+          in the gallery.
         </div>
       </div>
     );
@@ -162,6 +162,7 @@ class Upload extends Component {
       <>
         <input
           type="file"
+          accept="image/x-png,image/gif,image/jpeg"
           onChange={e => {
             if (e.target.files.length) {
               this.loadImage(e.target.files[0]);
