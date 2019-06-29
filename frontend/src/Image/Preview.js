@@ -117,7 +117,7 @@ class Preview extends Component {
     const tags = (
       <ul className="tags">
         {(image.tags || []).map(t => (
-          <li>{t.name}</li>
+          <li key={t.name}>{t.name}</li>
         ))}
       </ul>
     );

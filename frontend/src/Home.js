@@ -57,6 +57,7 @@ class Home extends Component {
             {pages.map(page => (
               <Route
                 path={`/${page.slug}/`}
+                key={page.slug}
                 render={() => <PageContent page={page} />}
               />
             ))}

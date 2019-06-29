@@ -37,5 +37,36 @@
     flex: 1;
     max-width: 250px;
     margin-left: 30px;
+
+    .approve-note {
+      margin: 10px 0;
+      font-style: italic;
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .ImagePage {
+    display: block;
+
+    .content {
+      border-width: 1px 0 1px 0;
+
+      .image,
+      .image-upload {
+        min-height: 200px;
+      }
+    }
+
+    .sidebar {
+      margin: 20px 0 0 0;
+      width: 100%;
+      max-width: calc(100% - 40px);
+      padding: 20px;
+      background: white;
+      border: 1px solid #e4e4e4;
+      border-width: 1px 0 1px 0;
+    }
   }
 }

@@ -7,3 +7,12 @@
     padding-top: 90px;
   }
 }
+
+@media (max-width: 800px) {
+  .Home {
+    .body {
+      padding: 0;
+      padding-top: 80px;
+    }
+  }
+}

@@ -1,5 +1,25 @@
 .ImagePage {
 
+  .content {
+    position: relative;
+
+    .error-triangle {
+      color: red;
+      padding: 5px;
+      position: absolute;
+      cursor: pointer;
+      right: 10px;
+    }
+
+    .image {
+      position: relative;
+
+      .error-triangle {
+        top: 10px;
+      }
+    }
+  }
+
   .input-field {
     background: transparent;
     font-size: inherit;
@@ -25,7 +45,6 @@
       box-sizing: border-box;
       margin: 5px 15px;
     }
-
   }
 
   .image-upload {

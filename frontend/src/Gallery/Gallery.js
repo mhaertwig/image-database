@@ -34,7 +34,7 @@ class Gallery extends Component {
           }}
         />
         <GridGallery
-          margin={5}
+          margin={1}
           images={images}
           enableImageSelection={false}
           showImageCount={false}

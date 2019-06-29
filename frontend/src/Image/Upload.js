@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaImage, FaCheck } from 'react-icons/fa';
+import { FaImage, FaCheck, FaExclamationTriangle } from 'react-icons/fa';
 import ReactTags from 'react-tag-autocomplete';
 import ImagePage from './ImagePage';
 import { addImage, fetchTags } from '../model/actions';
@@ -25,6 +25,7 @@ class Upload extends Component {
       imageUrl: null,
       imageFile: null,
       tags: [],
+      showError: false,
     };
 
     this.fileInput = null;
@@ -66,16 +67,26 @@ class Upload extends Component {
     const { dispatchAddImage } = this.props;
     const { tags, imageTitle, imageDescription, imageFile } = this.state;
 
-    dispatchAddImage({
-      tags: JSON.stringify(tags),
-      caption: imageTitle,
-      description: imageDescription,
-      src: imageFile,
-    });
+    if (imageTitle && imageDescription && imageFile) {
+      dispatchAddImage({
+        tags: JSON.stringify(tags),
+        caption: imageTitle,
+        description: imageDescription,
+        src: imageFile,
+      });
+    } else {
+      this.setState({ showError: true });
+    }
   }
 
   render() {
-    const { imageUrl, imageTitle, imageDescription, tags } = this.state;
+    const {
+      imageUrl,
+      imageTitle,
+      imageDescription,
+      tags,
+      showError,
+    } = this.state;
     const { tagSuggestions, dispatchFetchTags } = this.props;
     let img = <FaImage className="icon" />;
 
@@ -83,28 +94,42 @@ class Upload extends Component {
       img = <img className="image" src={imageUrl} alt="Preview" />;
     }
 
-    const title = (
-      <input
-        className="input-field image-title"
-        placeholder="Enter title"
-        value={imageTitle}
-        onChange={e => this.setState({ imageTitle: e.target.value })}
+    const error = (
+      <FaExclamationTriangle
+        className="error-triangle"
+        title="This field is required"
       />
     );
 
+    const title = (
+      <>
+        {showError && !imageTitle ? error : null}
+        <input
+          className="input-field image-title"
+          placeholder="Enter title"
+          value={imageTitle}
+          onChange={e => this.setState({ imageTitle: e.target.value })}
+        />
+      </>
+    );
+
     const description = (
-      <textarea
-        className="input-field image-description"
-        placeholder="Add description"
-        value={imageDescription}
-        onChange={e => this.setState({ imageDescription: e.target.value })}
-      />
+      <>
+        {showError && !imageDescription ? error : null}
+        <textarea
+          className="input-field image-description"
+          placeholder="Add description"
+          value={imageDescription}
+          onChange={e => this.setState({ imageDescription: e.target.value })}
+        />
+      </>
     );
 
     const sidebar = (
       <div className="input-sidebar">
         <div className="tags">
           <ReactTags
+            autofocus={false}
             allowNew
             tags={tags}
             suggestions={tagSuggestions}
@@ -121,12 +146,15 @@ class Upload extends Component {
         <button
           className="submit-button"
           type="submit"
-          disabled={!(imageUrl && imageTitle && imageDescription)}
           onClick={() => this.submitData()}
         >
           <FaCheck />
           &nbsp;Upload image
         </button>
+        <div className="approve-note">
+          Note: The page admins have to approve the image
+          before it is visible in the gallery.
+        </div>
       </div>
     );
 
@@ -144,6 +172,8 @@ class Upload extends Component {
           }}
           style={{ display: 'none' }}
         />
+
+        {showError && !imageUrl ? error : null}
 
         <div
           className="image-upload"
