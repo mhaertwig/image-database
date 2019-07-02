@@ -130,7 +130,9 @@ class Upload extends Component {
         <div className="tags">
           <ReactTags
             autofocus={false}
+            delimiterChars={[',', ' ']}
             allowNew
+            addOnBlur
             tags={tags}
             suggestions={tagSuggestions}
             handleAddition={tag => this.setState({ tags: [...tags, tag] })}
