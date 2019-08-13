@@ -1,0 +1,12 @@
+[main]
+debug=true
+secret_key=[todo]
+static_root=~/cimage/static
+media_root=~/cimage/media
+
+[db]
+name=climage
+user=[todo]
+password=[todo]
+host=localhost
+port=5432

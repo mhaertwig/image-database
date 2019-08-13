@@ -1,17 +1,6 @@
 server {
   listen 80;
-  server_name mariohaertwig.de;
-  charset utf-8;
-
-  location / {
-    default_type text/plain;
-    return 418 "418 I'm a teapot";
-  }
-}
-
-server {
-  listen 80;
-  server_name backend.climage.mariohaertwig.de
+  server_name {{ backend_server_name }};
   client_max_body_size 20M;
   charset utf-8;
 
@@ -33,7 +22,7 @@ server {
 
 server {
   listen 80;
-  server_name climage.mariohaertwig.de;
+  server_name {{ frontend_server_name }};
   root {{ application_dir }}/frontend/build;
   index index.html;
   charset utf-8;

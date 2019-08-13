@@ -1,10 +1,14 @@
 application_name: climage
-git_repo: git@github.com:mhaertwig/climage.git 
+git_repo: git@github.com:mhaertwig/climage.git
 
 root_dir: "/srv/www/{{ application_name }}"
 application_dir: "{{ root_dir }}/app"
-virtualenv_path: /srv/www/climage/venv
-application_log_file: /srv/www/climage/logs
+virtualenv_path: "{{ root_dir }}/venv"
+application_log_file: "{{ root_dir }}/logs"
 
-db_name: climage 
+db_name: climage
 db_user: climage
+
+# ansible server names
+frontend_server_name: climage.mariohaertwig.de
+backend_server_name: backend.climage.mariohaertwig.de
