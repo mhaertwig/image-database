@@ -1,4 +1,4 @@
-Image database based on the [Django Web Framework](https://www.djangoproject.com/) and [React](https://reactjs.org/).
+Image database based on the [Django Web Framework](https://www.djangoproject.com/) in the backend and [React](https://reactjs.org/) for the frontend.
 The repository contains an [Ansible](https://www.ansible.com/) configuration for deploying the application to a Linux server.
 Technologies used for the deployment are [NGINX](https://www.nginx.com/), [Gunicorn](https://gunicorn.org/) and a [PostgreSQL](https://postgresql.org) database.
 
@@ -13,7 +13,7 @@ project
 |
 └─ core  # Django app
 |
-└─ frontend  # Frontend application bootstrapped using [Create React App](https://github.com/facebook/create-react-app)
+└─ frontend  # Frontend application bootstrapped using Create React App
 ```
 
 ## Frontend installation
