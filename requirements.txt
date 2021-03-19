@@ -4,7 +4,7 @@ django-cors-headers==3.0.1
 django-extra-fields==1.2.1
 django-js-asset==1.2.2
 django-sortedm2m==1.5.0
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 ExifRead==2.1.2
 Pillow==8.0.0
 psycopg2-binary==2.8.6
